@@ -1,10 +1,17 @@
 package com.example.jdeliveryorder.Domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name="MENU")
 public class Menu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int menuId;
     private String menuName;
     private int menuPrice;
-
     private String menuPicture; //menuPicture 임시로 String으로 타입지정.
     private String menuDescription;
     private int storeId;

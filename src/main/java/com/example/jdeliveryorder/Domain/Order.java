@@ -1,60 +1,40 @@
 package com.example.jdeliveryorder.Domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
+@Builder
+@Getter
+@Entity(name="ORDER")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    private String orderDate;
+
+    @Column(name="date")
+    private LocalDateTime orderDate;
+
+    @Column(name="status",length = 45,nullable = false)
     private String orderStatus;
-    private Long userId;
+
+    @Column(name="address",length = 45,nullable = false)
+    private String address;
+
+    @Column(name="USER_id",length = 20,nullable = false)
+    private String userId;
+
+    @Column(name="STORE_id",nullable = false)
     private Long storeId;
-    private BigDecimal totalPrice;
 
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(Long storeId) {
-        this.storeId = storeId;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+    @Column(name="total_price",nullable = false)
+    private Long totalPrice;
 }

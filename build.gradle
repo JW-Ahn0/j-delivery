@@ -14,14 +14,20 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //lombook 관련 설정
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    //test관련 설정
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    //thymeleaf
+    //thymeleaf 사용
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    //
+    //jpa 사용
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    //
+    //mysql 사용
     implementation 'mysql:mysql-connector-java' // MySql
 }
 
