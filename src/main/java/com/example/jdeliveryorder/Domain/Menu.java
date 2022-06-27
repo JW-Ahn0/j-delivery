@@ -1,20 +1,30 @@
 package com.example.jdeliveryorder.Domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity(name="MENU")
+@Entity(name="menu") //테이블 명
 public class Menu {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment로 설
     private int menuId;
     private String menuName;
     private int menuPrice;
     private String menuPicture; //menuPicture 임시로 String으로 타입지정.
     private String menuDescription;
-    private int storeId;
+    private Long storeId;
+
+    public List<OrderMenu> getOrderMenus() {
+        return orderMenus;
+    }
+
+    public void setOrderMenus(List<OrderMenu> orderMenus) {
+        this.orderMenus = orderMenus;
+    }
+
+    @OneToMany(mappedBy = "menu") // OrderMenu 클래스에 필드로 설정된 Menu 타입의 필드이름이 오는 곳. mappedBy가 있는 곳이 연관관계의 주인.
+    private List<OrderMenu> orderMenus = new ArrayList<>();
 
     public int getMenuId() {
         return menuId;
@@ -56,11 +66,11 @@ public class Menu {
         this.menuDescription = menuDescription;
     }
 
-    public int getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(int storeId) {
+    public void setStoreId(Long storeId) {
         this.storeId = storeId;
     }
 }

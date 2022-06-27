@@ -1,24 +1,45 @@
 package com.example.jdeliveryorder.Domain;
 
+import javax.persistence.*;
+
+@Entity(name="order_menu")
 public class OrderMenu {
-    private Long orderId;
-    private int menuId;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long  id;
     private int OrderMenuCount;
 
-    public Long getOrderId() {
-        return orderId;
+    @ManyToOne
+    @JoinColumn(name="menuId") //외래키, 여기가 연관관계 주인
+    private Menu menu;
+
+    @ManyToOne
+    @JoinColumn(name ="orderId") //외래키, 여기가 연관관계 주인
+    private Order order;
+
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
-    public int getMenuId() {
-        return menuId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setMenuId(int menuId) {
-        this.menuId = menuId;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getOrderMenuCount() {
