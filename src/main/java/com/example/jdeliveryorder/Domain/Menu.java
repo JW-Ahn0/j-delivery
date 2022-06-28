@@ -1,11 +1,14 @@
 package com.example.jdeliveryorder.Domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="menu") //테이블 명
-public class Menu {
+public class Menu  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment로 설
     private int menuId;
@@ -14,6 +17,9 @@ public class Menu {
     private String menuPicture; //menuPicture 임시로 String으로 타입지정.
     private String menuDescription;
     private Long storeId;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "menu",cascade = CascadeType.PERSIST) // OrderMenu 클래스에 필드로 설정된 Menu 타입의 필드이름이 오는 곳. mappedBy가 없는 곳이 연관관계의 주인.
+    private List<OrderMenu> orderMenus = new ArrayList<>();
 
     public List<OrderMenu> getOrderMenus() {
         return orderMenus;
@@ -22,10 +28,6 @@ public class Menu {
     public void setOrderMenus(List<OrderMenu> orderMenus) {
         this.orderMenus = orderMenus;
     }
-
-    @OneToMany(mappedBy = "menu") // OrderMenu 클래스에 필드로 설정된 Menu 타입의 필드이름이 오는 곳. mappedBy가 있는 곳이 연관관계의 주인.
-    private List<OrderMenu> orderMenus = new ArrayList<>();
-
     public int getMenuId() {
         return menuId;
     }

@@ -1,9 +1,11 @@
 package com.example.jdeliveryorder.Domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,14 +21,6 @@ public class Order {
     @CreationTimestamp
     private Timestamp orderDate;
 
-    public List<OrderMenu> getOrderMenus() {
-        return orderMenus;
-    }
-
-    public void setOrderMenus(List<OrderMenu> orderMenus) {
-        this.orderMenus = orderMenus;
-    }
-
     private String orderStatus;
 
     private String address;
@@ -36,9 +30,18 @@ public class Order {
     private Long storeId;
 
     private Long totalPrice;
-
-    @OneToMany(mappedBy = "order") //참조를 당하는 쪽에서 읽기만 가능함. mappedBy가 없는 곳는 엔티티가 연관관계의 주
+    @JsonManagedReference
+    @OneToMany(mappedBy = "order",cascade = CascadeType.PERSIST) //참조를 당하는 쪽에서 읽기만 가능함. mappedBy가 없는 곳는 엔티티가 연관관계의 주인
     private List<OrderMenu> orderMenus = new ArrayList<>();
+
+
+    public List<OrderMenu> getOrderMenus() {
+        return orderMenus;
+    }
+
+    public void setOrderMenus(List<OrderMenu> orderMenus) {
+        this.orderMenus = orderMenus;
+    }
 
     public Long getOrderId() {
         return orderId;

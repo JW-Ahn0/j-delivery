@@ -28,7 +28,7 @@ public class TestService {
 
     @Transactional
     public Order test(){
-
+        Order testOrder2 = new Order();
         //Order 생성
         Order testOrder = new Order();
         testOrder.setOrderStatus("주문접수");
@@ -36,7 +36,6 @@ public class TestService {
         testOrder.setUserId("ajw");
         testOrder.setStoreId(15L);
         testOrder.setTotalPrice(1000L);
-
         //Menu 생성
         Menu testMenu = new Menu();
         testMenu.setMenuId(12);
@@ -49,16 +48,13 @@ public class TestService {
         //OrderMenu 생성
         OrderMenu testOrderMenu = new OrderMenu();
         testOrderMenu.setOrderMenuCount(2);
-
+        testOrder.getOrderMenus().add(testOrderMenu);
+        testMenu.getOrderMenus().add(testOrderMenu);
+        orderRepository.save(testOrder);
+        menuRepository.save(testMenu);
         //Order와 Menu를 OrderMenu와 양방향 설정.
         testOrderMenu.setOrder(testOrder);
         testOrderMenu.setMenu(testMenu);
-
-        testOrder.getOrderMenus().add(testOrderMenu);
-        testMenu.getOrderMenus().add(testOrderMenu);
-
-        menuRepository.save(testMenu);
-        orderRepository.save(testOrder);
         orderMenuRepository.save(testOrderMenu);
 
         return testOrder;

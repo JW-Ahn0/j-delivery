@@ -1,5 +1,8 @@
 package com.example.jdeliveryorder.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 
 @Entity(name="order_menu")
@@ -9,13 +12,13 @@ public class OrderMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long  id;
     private int OrderMenuCount;
-
-    @ManyToOne
-    @JoinColumn(name="menuId") //외래키, 여기가 연관관계 주인
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="menu_id") //외래키, 여기가 연관관계 주인
     private Menu menu;
-
-    @ManyToOne
-    @JoinColumn(name ="orderId") //외래키, 여기가 연관관계 주인
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name ="order_id") //외래키, 여기가 연관관계 주인
     private Order order;
 
     public Menu getMenu() {
