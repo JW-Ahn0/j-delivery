@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="menu") //테이블 명
+@Getter
 public class Menu  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-increment로 설
